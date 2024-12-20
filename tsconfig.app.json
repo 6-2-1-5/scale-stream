@@ -28,6 +28,7 @@
         "src"
     ],
     "exclude": [
-        "src/electron"
+        "src/electron",
+        "src/scale-stream"
     ]
 }

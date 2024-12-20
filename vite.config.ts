@@ -7,5 +7,9 @@ export default defineConfig({
     base: './',
     build: {
         outDir: 'dist-react',
-    }
+    },
+    server: {
+        port: 5123,
+        strictPort: true, // If port not available, vite will warn us and only start the server when the port is available
+    },
 })
