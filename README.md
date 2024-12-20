@@ -1,58 +1,50 @@
-# ScaleStream
+# React + TypeScript + Vite
 
-Real-time weight scale data streaming system that bridges RS-232 hardware with modern web applications. ScaleStream enables seamless integration between industrial weight scales and web-based monitoring interfaces through WebSocket communication.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Overview
+Currently, two official plugins are available:
 
-ScaleStream transforms traditional serial port weight scale readings into real-time web-accessible data streams. It's specifically designed to work with Toledo Format weight indicators while providing a modern web interface for monitoring and data visualization.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Key Features
+## Expanding the ESLint configuration
 
-- Real-time weight data acquisition from RS-232 serial port
-- WebSocket server for live data streaming
-- Support for Toledo Format protocol
-- Clean React-based web interface
-- Timestamp-synchronized weight measurements
-- Multi-client broadcasting support
-- Configurable serial port settings
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Technical Stack
+- Configure the top-level `parserOptions` property like this:
 
-- **Backend**: Python
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-  - Serial port communication
-  - WebSocket server
-  - Data parsing and processing
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-- **Frontend**: React
-  - Real-time data display
-  - WebSocket client
-  - Responsive design
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-## Use Cases
-
-- Industrial weight monitoring
-- Warehouse logistics
-- Production line weight tracking
-- Quality control systems
-- Inventory management
-- Laboratory measurements
-
-## Requirements
-
-- Python 3.x
-- RS-232 compatible weight scale
-- Modern web browser for frontend
-- Serial port access (COM port)
-
-<!-- ## Getting Started
-
-[Installation and setup instructions will go here]
-
-## Documentation
-
-[Link to detailed documentation will go here]
-
-## License
-
-[Your chosen license] -->
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
